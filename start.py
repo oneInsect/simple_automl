@@ -9,9 +9,9 @@ from flask import Flask, make_response
 APP = Flask(__name__, static_folder='static', static_url_path='/apps')
 
 
-@APP.route("/", methods=["GET"])
-def index():
-    return make_response("Hello!")
+@APP.route("/api/v1/automl/version", methods=["GET"])
+def version():
+    return make_response("v 1.0.0")
 
 
 if __name__ == '__main__':
