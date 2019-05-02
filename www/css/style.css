@@ -1,0 +1,42 @@
+
+
+h1{
+    color: white;
+    font-size:20px;
+    line-height: 0.1;
+    padding-bottom: 10px;
+    float: left;
+}
+h2 {
+    color: white;
+    font-size:20px;
+    line-height: 0.1;
+    padding-bottom: 10px;
+    float: right;
+    margin-right: 30px;
+}
+
+
+.header {
+    width: 100%;
+}
+
+.container {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.row {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+
+
+.col-lg-12 {
+    background: steelblue;
+}
