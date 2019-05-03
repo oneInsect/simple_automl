@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import Task, Trial
+from .models import Trial, Task
+
 # Register your models here.
 
-admin.register(Task)
-admin.register(Trial)
+admin.site.register(Task)
+admin.site.register(Trial)

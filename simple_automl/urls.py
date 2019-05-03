@@ -19,5 +19,15 @@ from server import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # return version info
     path('api/v1/automl/version', views.version),
+    # Get: Get all tasks preview
+    # Post: create a new task
+    path('api/v1/automl/task', views.tasks),
+    # Delete、add、modify a task
+    path('api/v1/automl/task/<str:task_id>', views.task),
+    # start a task
+    path('api/v1/automl/task/<str:task_id>/start', views.start),
+    # Get: get trial by task_id
+    path('api/v1/automl/trial/<str:task_id>', views.trials),
 ]

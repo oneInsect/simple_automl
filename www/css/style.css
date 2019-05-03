@@ -1,57 +1,43 @@
 
 
-h1{
-    color: white;
-    font-size:20px;
-    line-height: 0.1;
-    padding-top: 2px;
-    float: left;
-    margin-right: 20px;
-}
-h2 {
-    color: white;
-    font-size:15px;
-    line-height: 0.1;
-    padding-top: 2px;
-    float: right;
-    margin-right: 30px;
-}
 
 
-.header {
-    width: 100%;
-}
+/*h1{*/
+    /*color: white;*/
+    /*font-size:20px;*/
+    /*line-height: 0.1;*/
+    /*!*padding-top: 2px;*!*/
+    /*float: left;*/
+    /*margin-right: 20px;*/
+/*}*/
+/*h2 {*/
+    /*color: white;*/
+    /*font-size:15px;*/
+    /*line-height: 0.1;*/
+    /*!*padding-top: 2px;*!*/
+    /*float: right;*/
+    /*margin-right: 30px;*/
+/*}*/
 
-.container {
-    width: 100%;
-    padding-left: 0;
-    padding-right: 0;
-    margin-left: 0;
-    margin-right: 0;
-}
 
-.row {
-    width: 100%;
-    margin-left: 0;
-    margin-right: 0;
-}
+/*.container {*/
+    /*width: 100%;*/
+    /*padding-left: 0;*/
+    /*padding-right: 0;*/
+    /*margin-left: 0;*/
+    /*margin-right: 0;*/
+/*}*/
 
-.nav>li>a:hover {
 
-    background: #5bc0de;
-}
-.nav>li>a {
-    color: white;
-    height: 42px;
-}
-.navbar-nav>li>a {
-    padding-bottom: 0;
 
-}
-.logo>ul {
-    height: 42px;
-}
+/*.nav>li>a:hover {*/
 
-.col-lg-12 {
-    background: steelblue;
-}
+    /*background: #5bc0de;*/
+/*}*/
+/*.nav>li>a {*/
+    /*color: white;*/
+/*}*/
+/*.navbar-nav>li>a {*/
+    /*padding-top: 0;*/
+    /*padding-bottom: 0;*/
+/*}*/
