@@ -1,43 +1,4 @@
 
-
-
-
-/*h1{*/
-    /*color: white;*/
-    /*font-size:20px;*/
-    /*line-height: 0.1;*/
-    /*!*padding-top: 2px;*!*/
-    /*float: left;*/
-    /*margin-right: 20px;*/
-/*}*/
-/*h2 {*/
-    /*color: white;*/
-    /*font-size:15px;*/
-    /*line-height: 0.1;*/
-    /*!*padding-top: 2px;*!*/
-    /*float: right;*/
-    /*margin-right: 30px;*/
-/*}*/
-
-
-/*.container {*/
-    /*width: 100%;*/
-    /*padding-left: 0;*/
-    /*padding-right: 0;*/
-    /*margin-left: 0;*/
-    /*margin-right: 0;*/
-/*}*/
-
-
-
-/*.nav>li>a:hover {*/
-
-    /*background: #5bc0de;*/
-/*}*/
-/*.nav>li>a {*/
-    /*color: white;*/
-/*}*/
-/*.navbar-nav>li>a {*/
-    /*padding-top: 0;*/
-    /*padding-bottom: 0;*/
-/*}*/
+.jumbotron{
+    margin-top: 100px;
+}

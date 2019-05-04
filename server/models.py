@@ -12,6 +12,7 @@ class Task(models.Model):
     start_time = models.IntegerField(blank=True, null=True)
     end_time = models.IntegerField(blank=True, null=True)
     data_path = models.CharField(max_length=100)
+    data_name = models.CharField(max_length=100)
     status = models.CharField(max_length=100, default="ready")
     model_name = models.CharField(max_length=100)
     hyper_parameters = models.TextField()
