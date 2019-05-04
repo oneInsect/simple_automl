@@ -40,6 +40,17 @@
     </div>
     </div>
 
+    <footer class="footer navbar-fixed-bottom">
+      <div class="container">
+        <div class="row footer-bottom">
+          <ul class="list-inline text-center">
+              <li>Copyright ©2019</li>
+              <li><a href="#">Simple AutoML</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
 
     <div class="modal fade" id="addTask" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -102,6 +113,18 @@
 </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script>
+        function task_detail(obj) {
+            var id = $(obj).parents("tr").find(".taskID").text();
+            location.href = "/preview.html?task_id="+ id;
+        }
+        function task_editor(obj) {
+            var id = $(obj).parents("tr").find(".taskID").text();
+            alert(id)
+        }
+        function task_delete(obj) {
+            var id = $(obj).parents("tr").find(".taskID").text();
+            alert(id)
+        }
         function add_task()
         {
             var form = new FormData(document.getElementById("add_task_form"));

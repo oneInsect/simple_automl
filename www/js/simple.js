@@ -56,11 +56,14 @@ $(document).ready(
                     var field = tableHead[k].field;
                     var val = table_rows[i][field];
                     var td = $("<td>" + val + "</td>");
+                    if (k == 0) {
+                        td.addClass("taskID");
+                        }
                     td.appendTo(tr);
                 }
-                var td_bt = $("<td><button type='button' class='btn btn-xs btn-info'>Detail</button>" +
-                            "<button type='button' class='btn btn-xs btn-warning'>Editor</button>" +
-                            "<button type='button' class='btn btn-xs btn-danger'>Delete</button>" +
+                var td_bt = $("<td><button type='button' onclick='task_detail(this)' class='btn btn-xs btn-info'>Detail</button>" +
+                            "<button type='button' onclick='task_editor(this)' class='btn btn-xs btn-warning'>Editor</button>" +
+                            "<button type='button' onclick='task_delete(this)' class='btn btn-xs btn-danger'>Delete</button>" +
                             "</td>");
                 td_bt.appendTo(tr);
             }
