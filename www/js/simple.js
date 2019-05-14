@@ -62,7 +62,7 @@ $(document).ready(
                     td.appendTo(tr);
                 }
                 var td_bt = $("<td><button type='button' onclick='task_detail(this)' class='btn btn-xs btn-info'>Detail</button>" +
-                            "<button type='button' onclick='task_editor(this)' class='btn btn-xs btn-warning'>Editor</button>" +
+                    //        "<button type='button' onclick='task_editor(this)' class='btn btn-xs btn-warning'>Editor</button>" +
                             "<button type='button' onclick='task_delete(this)' class='btn btn-xs btn-danger'>Delete</button>" +
                             "</td>");
                 td_bt.appendTo(tr);
