@@ -15,19 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from server import views
+from server.views import index_views, preview_views, trial_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     # return version info
-    path('api/v1/automl/version', views.version),
+    path('api/v1/automl/version', index_views.version),
     # Get: Get all tasks preview
     # Post: create a new task
-    path('api/v1/automl/task', views.tasks),
-    # Delete、add、modify a task
-    path('api/v1/automl/task/<str:task_id>', views.task),
+    path('api/v1/automl/task', index_views.tasks),
+    # Delete、add a task
+    path('api/v1/automl/task/<str:task_id>', index_views.task),
+
+    # view the data set
+    path('api/v1/automl/task/data-set/<str:task_id>', preview_views.get_data_set),
     # start a task
-    path('api/v1/automl/task/<str:task_id>/start', views.start),
+    path('api/v1/automl/task/<str:task_id>/start', preview_views.start),
+
+
     # Get: get trial by task_id
-    path('api/v1/automl/trial/<str:task_id>', views.trials),
+    path('api/v1/automl/trial/<str:task_id>', trial_views.trials),
 ]
