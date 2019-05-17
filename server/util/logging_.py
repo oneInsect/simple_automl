@@ -7,7 +7,6 @@ import yaml
 
 def setup_logger(output_file=None, logging_config=None):
     # logging_config must be a dictionary object specifying the configuration
-    # for the loggers to be used in auto-sklearn.
     if not os.path.exists(os.path.dirname(output_file)):
         os.makedirs(os.path.dirname(output_file))
     if logging_config is not None:
@@ -47,7 +46,7 @@ class PickableLoggerAdapter(object):
         Dictionary, representing the object state to be pickled. Ignores
         the self.logger field and only returns the logger name.
         """
-        return { 'name': self.name }
+        return {'name': self.name}
 
     def __setstate__(self, state):
         """
