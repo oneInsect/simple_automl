@@ -2,30 +2,19 @@
  * Created by xu on 2019/5/2.
  */
 $(document).ready(
-    function ready_page(){
-		$.ajax({
-			url: "/api/v1/automl/version",
-            type: "get",
-			success: function (versionInfo) {
-				showVersion(versionInfo);
-			},
-			error: function () {
-                alert("Failed to obtain version information.");
-            }
-		});
-		function showVersion(versionInfo) {
-            $("#version").text(versionInfo)
-        }
-
-	});
-
-$(document).ready(
   function createTable(){
         $.ajax({
         url: "/api/v1/automl/task",
         type: "get",
-        success: function (table_rows) {
-            structure_task_table(table_rows);
+        success: function (tasks_data) {
+            var table_rows = tasks_data["data"];
+            var code = tasks_data["code"];
+            var msg = tasks_data["msg"];
+            if (code == 200){
+                structure_task_table(table_rows);}
+            else {
+                alert(msg)
+            }
         },
         error: function () {
             alert("failed to obtain table data.")
@@ -34,7 +23,7 @@ $(document).ready(
         function structure_task_table(table_rows) {
             var tableHead = [{"field": "task_id", "title": "Task ID" },
                               {"field": "task_name", "title": "Task Name"},
-                              {"field": "model_name", "title": "Model Name" },
+                              {"field": "model_type", "title": "Model Type" },
                               {"field": "data_name", "title": "Data Name" },
                               {"field": "status", "title": "Status" },
                               {"title": "Operation" }];

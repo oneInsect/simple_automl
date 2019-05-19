@@ -14,11 +14,11 @@ class Task(models.Model):
     data_path = models.CharField(max_length=100)
     data_name = models.CharField(max_length=100)
     status = models.CharField(max_length=100, default="ready")
-    model_name = models.CharField(max_length=100)
+    model_type = models.CharField(max_length=100)
     hyper_parameters = models.TextField()
 
     def __str__(self):
-        return u'%s %s' % (self.task_id, self.task_name)
+        return u'%s' % self.task_name
 
     class Meta:
         verbose_name = 'task'
@@ -36,7 +36,7 @@ class Trial(models.Model):
     hyper_parameters = models.TextField()
 
     def __str__(self):
-        return u'%s %s' % (self.task_id, self.trial_id)
+        return u'%s' % self.trial_id
 
     class Meta:
         verbose_name = 'trial'

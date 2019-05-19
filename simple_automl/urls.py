@@ -22,16 +22,13 @@ urlpatterns = [
     # return version info
     path('api/v1/automl/version', index_views.version),
     # Get: Get all tasks preview
-    # Post: create a new task
+    # Post: add a new task
     path('api/v1/automl/task', index_views.tasks),
-    # Delete、add a task
+    # Delete、get a task
     path('api/v1/automl/task/<str:task_id>', index_views.task),
 
-    # view the data set
-    path('api/v1/automl/task/data-set/<str:task_id>', preview_views.get_data_set),
     # start a task
     path('api/v1/automl/task/<str:task_id>/start', preview_views.start),
-
 
     # Get: get trial by task_id
     path('api/v1/automl/trial/<str:task_id>', trial_views.trials),

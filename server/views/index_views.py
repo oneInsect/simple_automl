@@ -1,12 +1,15 @@
 
 import os
+import re
 import uuid
-
+import shutil
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 from ..models import Task
-from ..apps import APP_DIR
+from ..apps import APP_DIR, LOG
+
+PATH_COMP = re.compile("^[a-f\d]{8}(-[a-f\d]{4}){3}-[a-f\d]{12}?")
 
 
 @require_http_methods(['GET'])
@@ -25,11 +28,15 @@ def tasks(request):
            :param request: task info.
            :return bool: operation states.
            """
+    # Get: Get all tasks preview
+    # Post: create a new task
     if request.method == "GET":
         task_list = Task.objects.all().values_list(
-            "task_id", "task_name", "model_name",
+            "task_id", "task_name", "model_type",
             "data_name", "status").values()
-        return JsonResponse([_task for _task in task_list], safe=False)
+        return JsonResponse({"data": [_task for _task in task_list],
+                             "msg": "",
+                             "code": 200})
     else:
         task_info = request.POST.dict()
         upload_file = request.FILES.get('file')
@@ -44,7 +51,9 @@ def tasks(request):
         task_info["data_path"] = file_path
         task_info["data_name"] = upload_file.name
         Task.objects.create(**task_info)
-        return JsonResponse({"status": "success"})
+        return JsonResponse({"data": {"status": "success"},
+                             "msg": "success",
+                             "code": 201})
 
 
 @csrf_exempt
@@ -62,7 +71,18 @@ def task(request, task_id):
     """
     if request.method == "GET":
         task_info = Task.objects.filter(task_id=task_id).values().get()
-        return JsonResponse(task_info)
-    else:
+        return JsonResponse({"data": task_info,
+                             "msg": "",
+                             "code": 200})
+    elif request.method == "DELETE":
+        task_info = Task.objects.filter(task_id=task_id).values().get()
         Task.objects.filter(task_id=task_id).delete()
-        return JsonResponse({"status": "success"})
+        data_path = task_info.get("data_path")
+        path_name = os.path.basename(os.path.dirname(data_path))
+        if PATH_COMP.search(path_name):
+            shutil.rmtree(os.path.dirname(data_path))
+        else:
+            LOG.error("Delete path error")
+        return JsonResponse({"data": {"status": "success"},
+                             "msg": "success",
+                             "code": 200})
