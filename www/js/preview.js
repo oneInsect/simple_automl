@@ -10,31 +10,28 @@ function getParam(paramName) {
     return paramValue == "" && (paramValue = null), paramValue
 }
 
-function jsonShowFn(json){
-    if (!json.match("^\{(.+:.+,*){1,}\}$")) {
-        return json           //判断是否是json数据，不是直接返回
-    }
-
-    if (typeof json != 'string') {
-        json = JSON.stringify(json, undefined, 2);
-    }
-    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
-        var cls = 'number';
-        if (/^"/.test(match)) {
-            if (/:$/.test(match)) {
-                cls = 'key';
-            } else {
-                cls = 'string';
+function startTask() {
+    var task_id = getParam("task_id");
+    $.ajax({
+            url: "/api/v1/automl/task/" + task_id + "/start",
+            type: "get",
+            success: function (request) {
+            var task_info = request["data"];
+            var code = request["code"];
+            var msg = request["msg"];
+            if (code==200){
+                alert(task_info["status"]);
+                $("#start").addClass("disabled").text("runing")
             }
-        } else if (/true|false/.test(match)) {
-            cls = 'boolean';
-        } else if (/null/.test(match)) {
-            cls = 'null';
-        }
-        return '<span class="' + cls + '">' + match + '</span>';
-    });
+            else
+                alert(msg)
+            },
+            error: function () {
+                alert("failed to obtain task detail.")
+            }
+        });
 }
+
 
 $(document).ready(
     function preview() {
@@ -76,9 +73,10 @@ $(document).ready(
                     $("#"+ show_list[i]).text(task_info[show_list[i]])
             }
             if (task_info["status"] != "ready"){
-                $("#start").addClass("disabled")
+                $("#start").addClass("disabled").text(task_info["status"])
             }
-            $('#hyper_parameters').html(jsonShowFn(task_info["hyper_parameters"]))
+            $('#hyper_parameters').val(JSON.stringify(
+                JSON.parse(task_info["hyper_parameters"]), null, 4));
         }
     }
 );
