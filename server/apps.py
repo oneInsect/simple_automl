@@ -12,3 +12,7 @@ class ServerConfig(AppConfig):
 
 setup_logger(output_file=os.path.join(APP_DIR, 'logs', 'server.log'))
 LOG = get_logger("server")
+
+
+class ServerException(Exception):
+    pass

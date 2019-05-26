@@ -66,10 +66,14 @@
                         <label class="control-label">Data Name</label>
                         <p id="data_name" class="form-control-static"></p>
                     </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Time Max</label>
+                        <p id="time_max" class="form-control-static"></p>
+                    </div>
                 </form>
                 <form class="form-inline panel-body">
                     <div class="form-group col-md-2">
-                        <label class="control-label">Model type</label>
+                        <label class="control-label">Model Type</label>
                         <p id="model_type" class="form-control-static"></p>
                     </div>
                     <div class="form-group col-md-2">
@@ -81,12 +85,13 @@
                         <p id="end_time" class="form-control-static"></p>
                     </div>
                     <div class="form-group col-md-2">
-                        <label class="control-label">status</label>
+                        <label class="control-label">Status</label>
                         <p id="status" class="form-control-static"></p>
                     </div>
                     <div class="form-group pull-right">
                         <div class="panel-body">
-                            <button id="start" type="button" onclick="startTask()"
+                            <button id="start" type="button"
+                                    onclick="startTask()"
                                     class="btn btn-lg btn-info">Start
                             </button>
                         </div>
@@ -105,20 +110,19 @@
                     <h3 class="panel-title">Task Schedule</h3>
                 </div>
                 <div class="panel-body">
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar"
-                             aria-valuenow="60" aria-valuemin="0"
-                             aria-valuemax="100"
-                             style="width: 60%;"><span class="sr-only">60% Complete</span>
-                        </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Task Process</label>
                     </div>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-success"
-                             role="progressbar" aria-valuenow="40"
-                             aria-valuemin="0"
-                             aria-valuemax="100" style="width: 40%"><span
-                                class="sr-only">40% Complete (success)</span>
+                        <div class="progress-bar"
+                             id="task_process"
+                             role="progressbar" style="width: 0"><span
+                                class="sr-only"></span>
                         </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">Best Accuracy</label>
+                        <p id="best_accuracy" class="form-control-static"></p>
                     </div>
                 </div>
             </div>
@@ -130,7 +134,8 @@
                 </div>
                 <div class="panel-body">
 
-                <textarea cols="40%" rows="5" id="hyper_parameters" readonly="readonly">
+                <textarea cols="40%" rows="5" id="hyper_parameters"
+                          readonly="readonly">
                     {}
                 </textarea>
 
@@ -157,31 +162,28 @@
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script>
-    function task_detail(obj) {
-        var id = $(obj).parents("tr").find(".taskID").text();
-        window.open("/preview.html?task_id=" + id);
-    }
-    function task_editor(obj) {
-        var id = $(obj).parents("tr").find(".taskID").text();
-        alert(id)
-    }
-    function task_delete(obj) {
-        var id = $(obj).parents("tr").find(".taskID").text();
-        alert(id)
-    }
-    function add_task() {
-        var form = new FormData(document.getElementById("add_task_form"));
-        $.ajax({
-            url: "api/v1/automl/task",
-            type: "post",
-            data: form,
-            processData: false,
-            contentType: false,
-            success: function () {
-                location.reload(true);
-            },
-            error: function (data) {
-                alert(data.msg);
+    $(function () {
+        getData();
+        setInterval(function () {
+            getData();
+        }, 3000);
+    });
+    function getData() {
+        var task_id = getParam("task_id");
+        $.getJSON("/api/v1/automl/task/status/" + task_id, function (data) {
+            if (200 == data.code) {
+                $("#status").text(data.data["status"]);
+                var time_percentile = data.data["time_percentile"];
+                $("#task_process").css({"width":time_percentile + "%"});
+                $("#best_accuracy").text(data.data["best_accuracy"]);
+                if (time_percentile >= 100 && !$("#task_process").hasClass("progress-bar-success"))
+                    $("#task_process").addClass("progress-bar-success");
+                if (time_percentile >= 100){
+                    $("#start").remove();
+                }
+                var end_time = data.data["end_time"];
+                if (end_time != null)
+                    $("#end_time").text(showTime(end_time));
             }
         });
     }

@@ -29,6 +29,8 @@ urlpatterns = [
 
     # start a task
     path('api/v1/automl/task/<str:task_id>/start', preview_views.start),
+    # Get: task status
+    path('api/v1/automl/task/status/<str:task_id>', preview_views.status),
 
     # Get: get trial by task_id
     path('api/v1/automl/trial/<str:task_id>', trial_views.trials),

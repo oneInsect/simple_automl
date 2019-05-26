@@ -39,6 +39,10 @@ def tasks(request):
                              "code": 200})
     else:
         task_info = request.POST.dict()
+        if not task_info.get("time_max"):
+            del task_info["time_max"]
+        if not task_info.get("hyper_parameters"):
+            task_info["hyper_parameters"] = "{}"
         upload_file = request.FILES.get('file')
         path_id = uuid.uuid4().urn.split(":")[2]
         file_dir = os.path.join(APP_DIR, "data", path_id)
@@ -51,6 +55,7 @@ def tasks(request):
         task_info["data_path"] = file_path
         task_info["data_name"] = upload_file.name
         Task.objects.create(**task_info)
+        LOG.info("add task success")
         return JsonResponse({"data": {"status": "success"},
                              "msg": "success",
                              "code": 201})
@@ -81,6 +86,7 @@ def task(request, task_id):
         path_name = os.path.basename(os.path.dirname(data_path))
         if PATH_COMP.search(path_name):
             shutil.rmtree(os.path.dirname(data_path))
+            LOG.info("Delete task success. task_id=%s", task_id)
         else:
             LOG.error("Delete path error")
         return JsonResponse({"data": {"status": "success"},

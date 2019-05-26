@@ -10,6 +10,18 @@ function getParam(paramName) {
     return paramValue == "" && (paramValue = null), paramValue
 }
 
+function showTime(time_int) {
+    var date = new Date(parseInt(time_int) * 1000);
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+    var d = date.getDate();
+    var h = date.getHours();
+    var mm = date.getMinutes();
+    var s = date.getSeconds();
+    return y + '-' + m + '-' + d + ' ' + h + ':' + mm + ':' + s;
+}
+
+
 function startTask() {
     var task_id = getParam("task_id");
     $.ajax({
@@ -20,8 +32,9 @@ function startTask() {
             var code = request["code"];
             var msg = request["msg"];
             if (code==200){
+                $("#start").addClass("disabled").text("running");
+                $("#start_time").text(showTime(task_info["start_time"]));
                 alert(task_info["status"]);
-                $("#start").addClass("disabled").text("runing")
             }
             else
                 alert(msg)
@@ -50,29 +63,26 @@ $(document).ready(
             }
         });
         function showTaskStatus(task_info) {
-            var show_list = ['task_id', 'task_name', 'create_time',
+            var show_list = ['task_id', 'task_name', 'create_time', "time_max",
                 'start_time', 'end_time', 'data_name', 'status', 'model_type'];
             for(var i=0; i < show_list.length; i++){
                 if (show_list[i].endsWith("time")){
                     var time_format = "";
                     if (task_info[show_list[i]] != null){
-                        var date = new Date(parseInt(task_info[show_list[i]]) * 1000);
-                        var y = date.getFullYear();
-                        var m = date.getMonth() + 1;
-                        var d = date.getDate();
-                        var h = date.getHours();
-                        var mm = date.getMinutes();
-                        var s = date.getSeconds();
-                        time_format = y + '-' + m + '-' + d + ' ' + h + ':' + mm + ':' + s;
+                        time_format = showTime(task_info[show_list[i]]);
                     }
-                    // if (task_info[show_list[i]] != null)
-                    //     time_format = new Date(parseInt(task_info[show_list[i]]) * 1000).toLocaleString();
                     $("#"+ show_list[i]).text(time_format)
                 }
                 else
-                    $("#"+ show_list[i]).text(task_info[show_list[i]])
+                    if (show_list[i] == "time_max")
+                        $("#"+ show_list[i]).text(task_info[show_list[i]] + "s");
+                    else
+                        $("#"+ show_list[i]).text(task_info[show_list[i]])
             }
-            if (task_info["status"] != "ready"){
+            if  (task_info["status"] == "done"){
+                $("#start").remove()
+            }
+            else if (task_info["status"] != "ready"){
                 $("#start").addClass("disabled").text(task_info["status"])
             }
             $('#hyper_parameters').val(JSON.stringify(
