@@ -1,0 +1,2 @@
+auto-sklearn==0.5.2
+Django==2.2.1
