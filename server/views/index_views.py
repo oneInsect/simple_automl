@@ -3,7 +3,7 @@ import os
 import re
 import uuid
 import shutil
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, FileResponse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 from ..models import Task
@@ -17,6 +17,26 @@ def version(_):
     """Get software version.
     :return str: 'V 1.0.0'"""
     return HttpResponse("V 1.0.0")
+
+
+@require_http_methods(['GET'])
+def download_dataset(_, file_name):
+    """
+    Download sample data set.
+    :param _:
+    :param file_name: the name of dataset.
+    :return:
+    """
+    if "/" not in file_name and file_name.endswith(".csv"):
+        sample_data_path = os.path.join(APP_DIR, "example_dataset", file_name)
+        if os.path.isfile(sample_data_path):
+            sample_data = open(sample_data_path, 'rb')
+            response = FileResponse(sample_data)
+            response['Content-Type'] = 'application/octet-stream'
+            response['Content-Disposition'] = 'attachment;filename="%s"'\
+                                              % file_name
+            return response
+    return HttpResponse("Some thing maybe wrong!", status=500)
 
 
 @csrf_exempt

@@ -16,7 +16,7 @@ class Task(models.Model):
     status = models.CharField(max_length=100, default="ready")
     model_type = models.CharField(max_length=100)
     time_max = models.IntegerField(default=300)
-    best_accuracy = models.FloatField(blank=True, null=True)
+    best_metrics = models.FloatField(blank=True, null=True)
     hyper_parameters = models.TextField()
 
     def __str__(self):

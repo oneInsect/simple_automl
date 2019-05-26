@@ -121,8 +121,8 @@
                         </div>
                     </div>
                     <div class="form-group col-md-3">
-                        <label class="control-label">Best Accuracy</label>
-                        <p id="best_accuracy" class="form-control-static"></p>
+                        <label class="control-label">Best Metrics</label>
+                        <p id="best_metrics" class="form-control-static"></p>
                     </div>
                 </div>
             </div>
@@ -175,15 +175,18 @@
                 $("#status").text(data.data["status"]);
                 var time_percentile = data.data["time_percentile"];
                 $("#task_process").css({"width":time_percentile + "%"});
-                $("#best_accuracy").text(data.data["best_accuracy"]);
+                $("#best_metrics").text(data.data["best_metrics"]);
                 if (time_percentile >= 100 && !$("#task_process").hasClass("progress-bar-success"))
                     $("#task_process").addClass("progress-bar-success");
                 if (time_percentile >= 100){
                     $("#start").remove();
                 }
                 var end_time = data.data["end_time"];
-                if (end_time != null)
+                if (end_time != null){
                     $("#end_time").text(showTime(end_time));
+                    $("#start").remove();
+                    $("#task_process").css({"width":"100%"}).addClass("progress-bar-success");
+                }
             }
         });
     }

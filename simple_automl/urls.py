@@ -19,6 +19,8 @@ from server.views import index_views, preview_views, trial_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # download sample data set
+    path('api/v1/automl/dataset/<str:file_name>', index_views.download_dataset),
     # return version info
     path('api/v1/automl/version', index_views.version),
     # Get: Get all tasks preview

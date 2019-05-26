@@ -31,11 +31,24 @@
         <h1>Welcome to Simple AutoML!</h1>
         <p> - Now, you can create a task.</p>
         <p> - start it!</p>
-        <p>
             <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#addTask">Create
                 Task
             </button>
-        </p>
+            <div class="btn-group pull-right">
+            <button type="button" class="btn btn-lg btn-primary dropdown-toggle" data-toggle="dropdown">Sample data set download
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li>
+                    <a href="/api/v1/automl/dataset/Sample_boston_data_set.csv">Sample_boston_data_set.csv</a>
+                </li>
+                <li class="divider"></li>
+                <li>
+                    <a href="/api/v1/automl/dataset/Sample_boston_data_set.csv">Sample_iris_data_set.csv</a>
+                </li>
+            </ul>
+            </div>
+
     </div>
     <div class="row">
         <div class="col-md-12" id="task_table">

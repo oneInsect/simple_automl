@@ -39,7 +39,7 @@ def status(_, task_id):
         :return task_status: dict
     """
     task_info = Task.objects.filter(task_id=task_id).values().get()
-    best_accuracy = task_info.get("best_accuracy")
+    best_metrics = task_info.get("best_metrics")
     start_time = task_info.get("start_time")
     end_time = task_info.get("end_time")
     time_max = task_info.get("time_max")
@@ -55,7 +55,7 @@ def status(_, task_id):
     task_status = dict(status=_status,
                        end_time=end_time,
                        time_percentile=time_percentile,
-                       best_accuracy=best_accuracy or '--')
+                       best_metrics=best_metrics or '--')
     return JsonResponse({"data": task_status,
                          "msg": "success",
                          "code": 200})
