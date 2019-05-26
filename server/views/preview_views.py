@@ -1,5 +1,5 @@
 import time
-from threading import Thread
+from multiprocessing import Process
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from ..models import Task
@@ -18,8 +18,7 @@ def start(_, task_id):
     task_obj = Task.objects.filter(task_id=task_id)
     task_info = task_obj.values().get()
     executor = partial(task_executor, task_info=task_info)
-    execute = Thread(target=executor)
-    execute.setDaemon(True)
+    execute = Process(target=executor)
     execute.start()
     start_time = int(time.time())
     task_obj.update(**{"status": "running", "start_time": start_time})

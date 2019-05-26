@@ -85,6 +85,14 @@ $(document).ready(
             else if (task_info["status"] != "ready"){
                 $("#start").addClass("disabled").text(task_info["status"])
             }
+            if  (task_info["model_type"] == "Classification"){
+                $("#metrics").text("Best Accuracy")
+            }
+            else if (task_info["model_type"] == "Regression"){
+                $("#metrics").text("Best MSE")
+            }
+            else
+                $("#metrics").text("Best Metrics");
             $('#hyper_parameters').val(JSON.stringify(
                 JSON.parse(task_info["hyper_parameters"]), null, 4));
         }
