@@ -10,7 +10,8 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <link rel="shortcuticon" href="favicon.ico"/>
     <script src="js/jquery.min.js"></script>
-    <script src="js/simple.js"></script>
+    <script src="js/version.js"></script>
+    <script src="js/preview.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bootstrap/js/bootstrap.min.js"></script>
 
@@ -19,7 +20,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="index.html" >Simple AutoML</a>
+            <a class="navbar-brand" href="index.html">Simple AutoML</a>
             <ul class="nav navbar-nav">
                 <li><a href="preview.html" target="_blank">Preview</a></li>
                 <li><a href="trials.html" target="_blank">Trials</a></li>
@@ -36,7 +37,8 @@
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
         <h2>Task Preview</h2>
-        <p>This page shows detailed information about tasks, including data set outline, hyper-parameters,
+        <p>This page shows detailed information about tasks, including data set
+            outline, hyper-parameters,
             task status, executable information, performance.</p>
     </div>
 
@@ -46,55 +48,59 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Task Outline</h3>
                 </div>
-                <div class="panel-body">
-                    <button type="button" class="btn btn-lg btn-info pull-right">Start</button>
-                </div>
-            </div>
-        </div><!-- /.col-sm-4 -->
-    </div>
 
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Data Set</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="col-md-12">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Username</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                <form class="form-inline panel-body">
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Task ID</label>
+                        <p id="task_id" class="form-control-static"></p>
                     </div>
-                </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Task Name</label>
+                        <p id="task_name" class="form-control-static"></p>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Create Time</label>
+                        <p id="create_time" class="form-control-static"></p>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Data Name</label>
+                        <p id="data_name" class="form-control-static"></p>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Time Max</label>
+                        <p id="time_max" class="form-control-static"></p>
+                    </div>
+                </form>
+                <form class="form-inline panel-body">
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Model Type</label>
+                        <p id="model_type" class="form-control-static"></p>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Start Time</label>
+                        <p id="start_time" class="form-control-static"></p>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">End Time</label>
+                        <p id="end_time" class="form-control-static"></p>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Status</label>
+                        <p id="status" class="form-control-static"></p>
+                    </div>
+                    <div class="form-group pull-right">
+                        <div class="panel-body">
+                            <button id="start" type="button"
+                                    onclick="startTask()"
+                                    class="btn btn-lg btn-info">Start
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+
             </div>
-        </div><!-- /.col-sm-4 -->
+        </div>
     </div>
 
     <div class="row">
@@ -104,16 +110,19 @@
                     <h3 class="panel-title">Task Schedule</h3>
                 </div>
                 <div class="panel-body">
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"
-                             aria-valuemax="100"
-                             style="width: 60%;"><span class="sr-only">60% Complete</span></div>
+                    <div class="form-group col-md-2">
+                        <label class="control-label">Task Process</label>
                     </div>
                     <div class="progress">
-                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40"
-                             aria-valuemin="0"
-                             aria-valuemax="100" style="width: 40%"><span class="sr-only">40% Complete (success)</span>
+                        <div class="progress-bar"
+                             id="task_process"
+                             role="progressbar" style="width: 0"><span
+                                class="sr-only"></span>
                         </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label id="metrics" class="control-label">Best Metrics</label>
+                        <p id="best_metrics" class="form-control-static"></p>
                     </div>
                 </div>
             </div>
@@ -125,9 +134,11 @@
                 </div>
                 <div class="panel-body">
 
-                    <code>
-                        print(task_info)
-                    </code>
+                <textarea cols="40%" rows="5" id="hyper_parameters"
+                          readonly="readonly">
+                    {}
+                </textarea>
+
                 </div>
             </div>
         </div>
@@ -137,16 +148,55 @@
 </div>
 
 
-<footer class="bs-docs-footer">
+<footer class="navbar navbar-default navbar-fixed-bottom">
     <div class="container">
-        <div class="row footer-bottom">
+        <div class="row panel-body">
             <ul class="list-inline text-center">
                 <li>Simple AutoML</li>
-                <li><a href="http://www.beian.miit.gov.cn" target="_blank">粤ICP备19050377号</a></li>
+                <li><a href="http://www.beian.miit.gov.cn" target="_blank">粤ICP备19050377号</a>
+                </li>
             </ul>
         </div>
     </div>
 </footer>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script>
+    $(function () {
+        getData();
+        setInterval(function () {
+            getData();
+        }, 3000);
+    });
+    function getData() {
+        var task_id = getParam("task_id");
+        $.getJSON("/api/v1/automl/task/status/" + task_id, function (data) {
+            if (200 == data.code) {
+                $("#status").text(data.data["status"]);
+                var time_percentile = data.data["time_percentile"];
+                $("#task_process").css({"width":time_percentile + "%"});
+                $("#best_metrics").text(data.data["best_metrics"]);
+                if (time_percentile >= 100 && !$("#task_process").hasClass("progress-bar-success"))
+                    $("#task_process").addClass("progress-bar-success");
+                if (time_percentile >= 100){
+                    $("#start").remove();
+                }
+                var end_time = data.data["end_time"];
+                if (end_time != null){
+                    $("#end_time").text(showTime(end_time));
+                    $("#start").remove();
+                    $("#task_process").css({"width":"100%"}).addClass("progress-bar-success");
+                }
+                else{
+                    if (time_percentile >= 100){
+                         $("#best_metrics").text("Predicting...");
+                }
+                }
+
+            }
+        });
+    }
+</script>
 
 </body>
 </html>

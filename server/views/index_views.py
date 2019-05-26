@@ -1,12 +1,15 @@
 
 import os
+import re
 import uuid
-
-from django.http import HttpResponse, JsonResponse
+import shutil
+from django.http import HttpResponse, JsonResponse, FileResponse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 from ..models import Task
-from ..apps import APP_DIR
+from ..apps import APP_DIR, LOG
+
+PATH_COMP = re.compile("^[a-f\d]{8}(-[a-f\d]{4}){3}-[a-f\d]{12}?")
 
 
 @require_http_methods(['GET'])
@@ -14,6 +17,26 @@ def version(_):
     """Get software version.
     :return str: 'V 1.0.0'"""
     return HttpResponse("V 1.0.0")
+
+
+@require_http_methods(['GET'])
+def download_dataset(_, file_name):
+    """
+    Download sample data set.
+    :param _:
+    :param file_name: the name of dataset.
+    :return:
+    """
+    if "/" not in file_name and file_name.endswith(".csv"):
+        sample_data_path = os.path.join(APP_DIR, "example_dataset", file_name)
+        if os.path.isfile(sample_data_path):
+            sample_data = open(sample_data_path, 'rb')
+            response = FileResponse(sample_data)
+            response['Content-Type'] = 'application/octet-stream'
+            response['Content-Disposition'] = 'attachment;filename="%s"'\
+                                              % file_name
+            return response
+    return HttpResponse("Some thing maybe wrong!", status=500)
 
 
 @csrf_exempt
@@ -25,13 +48,21 @@ def tasks(request):
            :param request: task info.
            :return bool: operation states.
            """
+    # Get: Get all tasks preview
+    # Post: create a new task
     if request.method == "GET":
         task_list = Task.objects.all().values_list(
-            "task_id", "task_name", "model_name",
+            "task_id", "task_name", "model_type",
             "data_name", "status").values()
-        return JsonResponse([_task for _task in task_list], safe=False)
+        return JsonResponse({"data": [_task for _task in task_list],
+                             "msg": "",
+                             "code": 200})
     else:
         task_info = request.POST.dict()
+        if not task_info.get("time_max"):
+            del task_info["time_max"]
+        if not task_info.get("hyper_parameters"):
+            task_info["hyper_parameters"] = "{}"
         upload_file = request.FILES.get('file')
         path_id = uuid.uuid4().urn.split(":")[2]
         file_dir = os.path.join(APP_DIR, "data", path_id)
@@ -44,7 +75,10 @@ def tasks(request):
         task_info["data_path"] = file_path
         task_info["data_name"] = upload_file.name
         Task.objects.create(**task_info)
-        return JsonResponse({"status": "success"})
+        LOG.info("add task success")
+        return JsonResponse({"data": {"status": "success"},
+                             "msg": "success",
+                             "code": 201})
 
 
 @csrf_exempt
@@ -62,7 +96,19 @@ def task(request, task_id):
     """
     if request.method == "GET":
         task_info = Task.objects.filter(task_id=task_id).values().get()
-        return JsonResponse(task_info)
-    else:
+        return JsonResponse({"data": task_info,
+                             "msg": "",
+                             "code": 200})
+    elif request.method == "DELETE":
+        task_info = Task.objects.filter(task_id=task_id).values().get()
         Task.objects.filter(task_id=task_id).delete()
-        return JsonResponse({"status": "success"})
+        data_path = task_info.get("data_path")
+        path_name = os.path.basename(os.path.dirname(data_path))
+        if PATH_COMP.search(path_name):
+            shutil.rmtree(os.path.dirname(data_path))
+            LOG.info("Delete task success. task_id=%s", task_id)
+        else:
+            LOG.error("Delete path error")
+        return JsonResponse({"data": {"status": "success"},
+                             "msg": "success",
+                             "code": 200})

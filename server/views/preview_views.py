@@ -1,28 +1,10 @@
-
-import os
-import pandas as pd
-from django.http import HttpResponse, JsonResponse
+import time
+from multiprocessing import Process
+from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
-from django.views.decorators.csrf import csrf_exempt
-from ..models import Task, Trial
-from ..apps import APP_DIR
-
-
-@require_http_methods(['GET'])
-def get_data_set(_, task_id):
-    """
-    GET:
-        :param task_id: the identify of task.
-        :param _: nil.
-        :return data_set: the preview of data set, dict
-    """
-    task_info = Task.objects.filter(task_id=task_id).values().get()
-    data_set_path = task_info.get('data_path')
-    if not os.path.exists(data_set_path):
-        return HttpResponse("data set file is not exists.", status=500)
-    data_set = pd.read_csv(data_set_path, nrows=5)
-    data_set_json = data_set.to_json()
-    return HttpResponse(data_set_json)
+from ..models import Task
+from .views_func import task_executor
+from functools import partial
 
 
 @require_http_methods(['GET'])
@@ -31,8 +13,48 @@ def start(_, task_id):
     GET:
         :param task_id: the identify of task.
         :param _: nil.
-        :return task_info: the detail of task, dict
+        :return execute_status: success
+    """
+    task_obj = Task.objects.filter(task_id=task_id)
+    task_info = task_obj.values().get()
+    executor = partial(task_executor, task_info=task_info)
+    execute = Process(target=executor)
+    execute.start()
+    start_time = int(time.time())
+    task_obj.update(**{"status": "running", "start_time": start_time})
+    response_data = {"status": "success",
+                     "start_time": start_time}
+    return JsonResponse({"data": response_data,
+                         "msg": "success",
+                         "code": 200})
+
+
+@require_http_methods(['GET'])
+def status(_, task_id):
+    """
+    GET:
+        :param task_id: the identify of task.
+        :param _: nil.
+        :return task_status: dict
     """
     task_info = Task.objects.filter(task_id=task_id).values().get()
-    print(task_info)
-    return JsonResponse({"status": "success"})
+    best_metrics = task_info.get("best_metrics")
+    start_time = task_info.get("start_time")
+    end_time = task_info.get("end_time")
+    time_max = task_info.get("time_max")
+    _status = task_info.get("status")
+    now = int(time.time())
+    if not start_time:
+        process_time = 0
+    elif not end_time:
+        process_time = now - start_time
+    else:
+        process_time = end_time - start_time
+    time_percentile = int(process_time / time_max * 100)
+    task_status = dict(status=_status,
+                       end_time=end_time,
+                       time_percentile=time_percentile,
+                       best_metrics=best_metrics or '--')
+    return JsonResponse({"data": task_status,
+                         "msg": "success",
+                         "code": 200})

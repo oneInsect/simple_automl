@@ -1,4 +1,13 @@
 
+body {
+    padding-bottom: 70px;
+}
+
+
 .jumbotron{
     margin-top: 100px;
+}
+
+.list-inline{
+    margin-bottom: 0;
 }
