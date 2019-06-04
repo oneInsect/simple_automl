@@ -26,7 +26,7 @@ class ModelSelector(object):
         support_models = json.loads(support_models)
         return support_models
 
-    def random_select(self):
+    def random_search(self):
         """
         Select model based random choice
         :return: model_name
