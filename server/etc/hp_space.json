@@ -1,0 +1,1567 @@
+{
+  "regression": {
+    "adaboost": {
+      "learning_rate": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.01,
+          2.0
+        ],
+        "Default": 0.1,
+        "on": "log-scale"
+      },
+      "loss": {
+        "Type": "Categorical",
+        "Choices": [
+          "linear",
+          "square",
+          "exponential"
+        ],
+        "Default": "linear"
+      },
+      "max_depth": {
+        "Type": "UniformInteger",
+        "Range": [
+          1,
+          10
+        ],
+        "Default": 1
+      },
+      "n_estimators": {
+        "Type": "UniformInteger",
+        "Range": [
+          50,
+          500
+        ],
+        "Default": 50
+      }
+    },
+    "ard_regression": {
+      "alpha_1": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-10,
+          0.001
+        ],
+        "Default": 1e-06
+      },
+      "alpha_2": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-10,
+          0.001
+        ],
+        "Default": 1e-06,
+        "on": "log-scale"
+      },
+      "fit_intercept": {
+        "Type": "Constant",
+        "Value": true
+      },
+      "lambda_1": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-10,
+          0.001
+        ],
+        "Default": 1e-06,
+        "on": "log-scale"
+      },
+      "lambda_2": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-10,
+          0.001
+        ],
+        "Default": 1e-06,
+        "on": "log-scale"
+      },
+      "n_iter": {
+        "Type": "Constant",
+        "Value": 300
+      },
+      "threshold_lambda": {
+        "Type": "UniformFloat",
+        "Range": [
+          1000.0,
+          100000.0
+        ],
+        "Default": 10000.0,
+        "on": "log-scale"
+      },
+      "tol": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-05,
+          0.1
+        ],
+        "Default": 0.001,
+        "on": "log-scale"
+      }
+    },
+    "decision_tree": {
+      "criterion": {
+        "Type": "Categorical",
+        "Choices": [
+          "mse",
+          "friedman_mse",
+          "mae"
+        ],
+        "Default": "mse"
+      },
+      "max_depth_factor": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.0,
+          2.0
+        ],
+        "Default": 0.5
+      },
+      "max_features": {
+        "Type": "Constant",
+        "Value": 1.0
+      },
+      "max_leaf_nodes": {
+        "Type": "Constant",
+        "Value": null
+      },
+      "min_impurity_decrease": {
+        "Type": "Constant",
+        "Value": 0.0
+      },
+      "min_samples_leaf": {
+        "Type": "UniformInteger",
+        "Range": [
+          1,
+          20
+        ],
+        "Default": 1
+      },
+      "min_samples_split": {
+        "Type": "UniformInteger",
+        "Range": [
+          2,
+          20
+        ],
+        "Default": 2
+      },
+      "min_weight_fraction_leaf": {
+        "Type": "Constant",
+        "Value": 0.0
+      }
+    },
+    "extra_trees": {
+      "bootstrap": {
+        "Type": "Categorical",
+        "Choices": [
+          true,
+          false
+        ],
+        "Default": false
+      },
+      "criterion": {
+        "Type": "Categorical",
+        "Choices": [
+          "mse",
+          "friedman_mse",
+          "mae"
+        ],
+        "Default": "mse"
+      },
+      "max_depth": {
+        "Type": "Constant",
+        "Value": null
+      },
+      "max_features": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.1,
+          1.0
+        ],
+        "Default": 1.0
+      },
+      "max_leaf_nodes": {
+        "Type": "Constant",
+        "Value": null
+      },
+      "min_impurity_decrease": {
+        "Type": "Constant",
+        "Value": 0.0
+      },
+      "min_samples_leaf": {
+        "Type": "UniformInteger",
+        "Range": [
+          1,
+          20
+        ],
+        "Default": 1
+      },
+      "min_samples_split": {
+        "Type": "UniformInteger",
+        "Range": [
+          2,
+          20
+        ],
+        "Default": 2
+      },
+      "n_estimators": {
+        "Type": "Constant",
+        "Value": 100
+      }
+    },
+    "gaussian_process": {
+      "alpha": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-14,
+          1.0
+        ],
+        "Default": 1e-08,
+        "on": "log-scale"
+      },
+      "thetaL": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-10,
+          0.001
+        ],
+        "Default": 1e-06,
+        "on": "log-scale"
+      },
+      "thetaU": {
+        "Type": "UniformFloat",
+        "Range": [
+          1.0,
+          100000.0
+        ],
+        "Default": 100000.0,
+        "on": "log-scale"
+      }
+    },
+    "gradient_boosting": {
+      "alpha": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.75,
+          0.99
+        ],
+        "Default": 0.9
+      },
+      "learning_rate": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.01,
+          1.0
+        ],
+        "Default": 0.1,
+        "on": "log-scale"
+      },
+      "loss": {
+        "Type": "Categorical",
+        "Choices": [
+          "ls",
+          "lad",
+          "huber",
+          "quantile"
+        ],
+        "Default": "ls"
+      },
+      "max_depth": {
+        "Type": "UniformInteger",
+        "Range": [
+          1,
+          10
+        ],
+        "Default": 3
+      },
+      "max_features": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.1,
+          1.0
+        ],
+        "Default": 1.0
+      },
+      "max_leaf_nodes": {
+        "Type": "Constant",
+        "Value": null
+      },
+      "min_impurity_decrease": {
+        "Type": "Constant",
+        "Value": 0.0
+      },
+      "min_samples_leaf": {
+        "Type": "UniformInteger",
+        "Range": [
+          1,
+          20
+        ],
+        "Default": 1
+      },
+      "min_samples_split": {
+        "Type": "UniformInteger",
+        "Range": [
+          2,
+          20
+        ],
+        "Default": 2
+      },
+      "min_weight_fraction_leaf": {
+        "Type": "Constant",
+        "Value": 0.0
+      },
+      "n_estimators": {
+        "Type": "UniformInteger",
+        "Range": [
+          50,
+          500
+        ],
+        "Default": 100
+      },
+      "subsample": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.01,
+          1.0
+        ],
+        "Default": 1.0
+      }
+    },
+    "k_nearest_neighbors": {
+      "n_neighbors": {
+        "Type": "UniformInteger",
+        "Range": [
+          1,
+          100
+        ],
+        "Default": 1,
+        "on": "log-scale"
+      },
+      "p": {
+        "Type": "Categorical",
+        "Choices": [
+          1,
+          2
+        ],
+        "Default": 2
+      },
+      "weights": {
+        "Type": "Categorical",
+        "Choices": [
+          "uniform",
+          "distance"
+        ],
+        "Default": "uniform"
+      }
+    },
+    "liblinear_svr": {
+      "C": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.03125,
+          32768.0
+        ],
+        "Default": 1.0,
+        "on": "log-scale"
+      },
+      "dual": {
+        "Type": "Constant",
+        "Value": false
+      },
+      "epsilon": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.001,
+          1.0
+        ],
+        "Default": 0.1,
+        "on": "log-scale"
+      },
+      "fit_intercept": {
+        "Type": "Constant",
+        "Value": true
+      },
+      "intercept_scaling": {
+        "Type": "Constant",
+        "Value": 1
+      },
+      "loss": {
+        "Type": "Categorical",
+        "Choices": [
+          "epsilon_insensitive",
+          "squared_epsilon_insensitive"
+        ],
+        "Default": "squared_epsilon_insensitive"
+      },
+      "tol": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-05,
+          0.1
+        ],
+        "Default": 0.0001,
+        "on": "log-scale"
+      }
+    },
+    "libsvm_svr": {
+      "C": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.03125,
+          32768.0
+        ],
+        "Default": 1.0,
+        "on": "log-scale"
+      },
+      "coef0": {
+        "Type": "UniformFloat",
+        "Range": [
+          -1.0,
+          1.0
+        ],
+        "Default": 0.0
+      },
+      "degree": {
+        "Type": "UniformInteger",
+        "Range": [
+          2,
+          5
+        ],
+        "Default": 3
+      },
+      "epsilon": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.001,
+          1.0
+        ],
+        "Default": 0.1,
+        "on": "log-scale"
+      },
+      "gamma": {
+        "Type": "UniformFloat",
+        "Range": [
+          3.0517578125e-05,
+          8.0
+        ],
+        "Default": 0.1,
+        "on": "log-scale"
+      },
+      "kernel": {
+        "Type": "Categorical",
+        "Choices": [
+          "linear",
+          "poly",
+          "rbf",
+          "sigmoid"
+        ],
+        "Default": "rbf"
+      },
+      "max_iter": {
+        "Type": "Constant",
+        "Value": "-1"
+      },
+      "shrinking": {
+        "Type": "Categorical",
+        "Choices": [
+          true,
+          false
+        ],
+        "Default": true
+      },
+      "tol": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-05,
+          0.1
+        ],
+        "Default": 0.001,
+        "on": "log-scale"
+      }
+    },
+    "random_forest": {
+      "bootstrap": {
+        "Type": "Categorical",
+        "Choices": [
+          true,
+          false
+        ],
+        "Default": true
+      },
+      "criterion": {
+        "Type": "Categorical",
+        "Choices": [
+          "mse",
+          "friedman_mse",
+          "mae"
+        ],
+        "Default": "mse"
+      },
+      "max_depth": {
+        "Type": "Constant",
+        "Value": null
+      },
+      "max_features": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.1,
+          1.0
+        ],
+        "Default": 1.0
+      },
+      "max_leaf_nodes": {
+        "Type": "Constant",
+        "Value": null
+      },
+      "min_impurity_decrease": {
+        "Type": "Constant",
+        "Value": 0.0
+      },
+      "min_samples_leaf": {
+        "Type": "UniformInteger",
+        "Range": [
+          1,
+          20
+        ],
+        "Default": 1
+      },
+      "min_samples_split": {
+        "Type": "UniformInteger",
+        "Range": [
+          2,
+          20
+        ],
+        "Default": 2
+      },
+      "min_weight_fraction_leaf": {
+        "Type": "Constant",
+        "Value": 0.0
+      },
+      "n_estimators": {
+        "Type": "Constant",
+        "Value": 100
+      }
+    },
+    "ridge_regression": {
+      "alpha": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-05,
+          10.0
+        ],
+        "Default": 1.0,
+        "on": "log-scale"
+      },
+      "fit_intercept": {
+        "Type": "Constant",
+        "Value": true
+      },
+      "tol": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-05,
+          0.1
+        ],
+        "Default": 0.001,
+        "on": "log-scale"
+      }
+    },
+    "sgd": {
+      "alpha": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-07,
+          0.1
+        ],
+        "Default": 0.0001,
+        "on": "log-scale"
+      },
+      "average": {
+        "Type": "Categorical",
+        "Choices": [
+          false,
+          true
+        ],
+        "Default": false
+      },
+      "epsilon": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-05,
+          0.1
+        ],
+        "Default": 0.1,
+        "on": "log-scale"
+      },
+      "eta0": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-07,
+          0.1
+        ],
+        "Default": 0.01,
+        "on": "log-scale"
+      },
+      "fit_intercept": {
+        "Type": "Constant",
+        "Value": true
+      },
+      "l1_ratio": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-09,
+          1.0
+        ],
+        "Default": 0.15,
+        "on": "log-scale"
+      },
+      "learning_rate": {
+        "Type": "Categorical",
+        "Choices": [
+          "optimal",
+          "invscaling",
+          "constant"
+        ],
+        "Default": "invscaling"
+      },
+      "loss": {
+        "Type": "Categorical",
+        "Choices": [
+          "squared_loss",
+          "huber",
+          "epsilon_insensitive",
+          "squared_epsilon_insensitive"
+        ],
+        "Default": "squared_loss"
+      },
+      "penalty": {
+        "Type": "Categorical",
+        "Choices": [
+          "l1",
+          "l2",
+          "elasticnet"
+        ],
+        "Default": "l2"
+      },
+      "power_t": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-05,
+          1.0
+        ],
+        "Default": 0.25
+      },
+      "tol": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-05,
+          0.1
+        ],
+        "Default": 0.0001,
+        "on": "log-scale"
+      }
+    },
+    "xgradient_boosting": {
+      "base_score": {
+        "Type": "Constant",
+        "Value": 0.5
+      },
+      "booster": {
+        "Type": "Categorical",
+        "Choices": [
+          "gbtree",
+          "dart"
+        ],
+        "Default": "gbtree"
+      },
+      "colsample_bylevel": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.1,
+          1.0
+        ],
+        "Default": 1.0
+      },
+      "colsample_bytree": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.1,
+          1.0
+        ],
+        "Default": 1.0
+      },
+      "gamma": {
+        "Type": "Constant",
+        "Value": 0
+      },
+      "learning_rate": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.01,
+          1.0
+        ],
+        "Default": 0.1,
+        "on": "log-scale"
+      },
+      "max_delta_step": {
+        "Type": "Constant",
+        "Value": 0
+      },
+      "max_depth": {
+        "Type": "UniformInteger",
+        "Range": [
+          1,
+          10
+        ],
+        "Default": 3
+      },
+      "min_child_weight": {
+        "Type": "UniformInteger",
+        "Range": [
+          0,
+          20
+        ],
+        "Default": 1
+      },
+      "n_estimators": {
+        "Type": "Constant",
+        "Value": 512
+      },
+      "normalize_type": {
+        "Type": "Categorical",
+        "Choices": [
+          "tree",
+          "forest"
+        ],
+        "Default": "tree"
+      },
+      "rate_drop": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-10,
+          0.9999999999
+        ],
+        "Default": 0.5
+      },
+      "reg_alpha": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-10,
+          0.1
+        ],
+        "Default": 1e-10,
+        "on": "log-scale"
+      },
+      "reg_lambda": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-10,
+          0.1
+        ],
+        "Default": 1e-10,
+        "on": "log-scale"
+      },
+      "sample_type": {
+        "Type": "Categorical",
+        "Choices": [
+          "uniform",
+          "weighted"
+        ],
+        "Default": "uniform"
+      },
+      "scale_pos_weight": {
+        "Type": "Constant",
+        "Value": 1
+      },
+      "subsample": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.01,
+          1.0
+        ],
+        "Default": 1.0
+      }
+    }
+  },
+  "classification": {
+    "adaboost": {
+      "algorithm": {
+        "Type": "Categorical",
+        "Choices": [
+          "SAMME.R",
+          "SAMME"
+        ],
+        "Default": "SAMME.R"
+      },
+      "learning_rate": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.01,
+          2.0
+        ],
+        "Default": 0.1,
+        "on": "log-scale"
+      },
+      "max_depth": {
+        "Type": "UniformInteger",
+        "Range": [
+          1,
+          10
+        ],
+        "Default": 1
+      },
+      "n_estimators": {
+        "Type": "UniformInteger",
+        "Range": [
+          50,
+          500
+        ],
+        "Default": 50
+      }
+    },
+    "bernoulli_nb": {
+      "alpha": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.01,
+          100.0
+        ],
+        "Default": 1.0,
+        "on": "log-scale"
+      },
+      "fit_prior": {
+        "Type": "Categorical",
+        "Choices": [
+          true,
+          false
+        ],
+        "Default": true
+      }
+    },
+    "decision_tree": {
+      "criterion": {
+        "Type": "Categorical",
+        "Choices": [
+          "gini",
+          "entropy"
+        ],
+        "Default": "gini"
+      },
+      "max_depth_factor": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.0,
+          2.0
+        ],
+        "Default": 0.5
+      },
+      "max_features": {
+        "Type": "Constant",
+        "Value": 1.0
+      },
+      "max_leaf_nodes": {
+        "Type": "Constant",
+        "Value": null
+      },
+      "min_impurity_decrease": {
+        "Type": "Constant",
+        "Value": 0.0
+      },
+      "min_samples_leaf": {
+        "Type": "UniformInteger",
+        "Range": [
+          1,
+          20
+        ],
+        "Default": 1
+      },
+      "min_samples_split": {
+        "Type": "UniformInteger",
+        "Range": [
+          2,
+          20
+        ],
+        "Default": 2
+      },
+      "min_weight_fraction_leaf": {
+        "Type": "Constant",
+        "Value": 0.0
+      }
+    },
+    "extra_trees": {
+      "bootstrap": {
+        "Type": "Categorical",
+        "Choices": [
+          true,
+          false
+        ],
+        "Default": false
+      },
+      "criterion": {
+        "Type": "Categorical",
+        "Choices": [
+          "gini",
+          "entropy"
+        ],
+        "Default": "gini"
+      },
+      "max_depth": {
+        "Type": "Constant",
+        "Value": null
+      },
+      "max_features": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.0,
+          1.0
+        ],
+        "Default": 0.5
+      },
+      "max_leaf_nodes": {
+        "Type": "Constant",
+        "Value": null
+      },
+      "min_impurity_decrease": {
+        "Type": "Constant",
+        "Value": 0.0
+      },
+      "min_samples_leaf": {
+        "Type": "UniformInteger",
+        "Range": [
+          1,
+          20
+        ],
+        "Default": 1
+      },
+      "min_samples_split": {
+        "Type": "UniformInteger",
+        "Range": [
+          2,
+          20
+        ],
+        "Default": 2
+      },
+      "min_weight_fraction_leaf": {
+        "Type": "Constant",
+        "Value": 0.0
+      },
+      "n_estimators": {
+        "Type": "Constant",
+        "Value": 100
+      }
+    },
+    "gradient_boosting": {
+      "criterion": {
+        "Type": "Categorical",
+        "Choices": [
+          "friedman_mse",
+          "mse",
+          "mae"
+        ],
+        "Default": "mse"
+      },
+      "learning_rate": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.01,
+          1.0
+        ],
+        "Default": 0.1,
+        "on": "log-scale"
+      },
+      "loss": {
+        "Type": "Constant",
+        "Value": "deviance"
+      },
+      "max_depth": {
+        "Type": "UniformInteger",
+        "Range": [
+          1,
+          10
+        ],
+        "Default": 3
+      },
+      "max_features": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.1,
+          1.0
+        ],
+        "Default": 1.0
+      },
+      "max_leaf_nodes": {
+        "Type": "Constant",
+        "Value": null
+      },
+      "min_impurity_decrease": {
+        "Type": "Constant",
+        "Value": 0.0
+      },
+      "min_samples_leaf": {
+        "Type": "UniformInteger",
+        "Range": [
+          1,
+          20
+        ],
+        "Default": 1
+      },
+      "min_samples_split": {
+        "Type": "UniformInteger",
+        "Range": [
+          2,
+          20
+        ],
+        "Default": 2
+      },
+      "min_weight_fraction_leaf": {
+        "Type": "Constant",
+        "Value": 0.0
+      },
+      "n_estimators": {
+        "Type": "UniformInteger",
+        "Range": [
+          50,
+          500
+        ],
+        "Default": 100
+      },
+      "subsample": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.01,
+          1.0
+        ],
+        "Default": 1.0
+      }
+    },
+    "k_nearest_neighbors": {
+      "n_neighbors": {
+        "Type": "UniformInteger",
+        "Range": [
+          1,
+          100
+        ],
+        "Default": 1,
+        "on": "log-scale"
+      },
+      "p": {
+        "Type": "Categorical",
+        "Choices": [
+          1,
+          2
+        ],
+        "Default": 2
+      },
+      "weights": {
+        "Type": "Categorical",
+        "Choices": [
+          "uniform",
+          "distance"
+        ],
+        "Default": "uniform"
+      }
+    },
+    "lda": {
+      "n_components": {
+        "Type": "UniformInteger",
+        "Range": [
+          1,
+          250
+        ],
+        "Default": 10
+      },
+      "shrinkage": {
+        "Type": "Categorical",
+        "Choices": [
+          null,
+          "auto",
+          "manual"
+        ],
+        "Default": null
+      },
+      "shrinkage_factor": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.0,
+          1.0
+        ],
+        "Default": 0.5
+      },
+      "tol": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-05,
+          0.1
+        ],
+        "Default": 0.0001,
+        "on": "log-scale"
+      }
+    },
+    "liblinear_svc": {
+      "C": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.03125,
+          32768.0
+        ],
+        "Default": 1.0,
+        "on": "log-scale"
+      },
+      "dual": {
+        "Type": "Constant",
+        "Value": false
+      },
+      "fit_intercept": {
+        "Type": "Constant",
+        "Value": true
+      },
+      "intercept_scaling": {
+        "Type": "Constant",
+        "Value": 1
+      },
+      "loss": {
+        "Type": "Categorical",
+        "Choices": [
+          "hinge",
+          "squared_hinge"
+        ],
+        "Default": "squared_hinge"
+      },
+      "multi_class": {
+        "Type": "Constant",
+        "Value": "ovr"
+      },
+      "penalty": {
+        "Type": "Categorical",
+        "Choices": [
+          "l1",
+          "l2"
+        ],
+        "Default": "l2"
+      },
+      "tol": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-05,
+          0.1
+        ],
+        "Default": 0.0001,
+        "on": "log-scale"
+      }
+    },
+    "libsvm_svc": {
+      "C": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.03125,
+          32768.0
+        ],
+        "Default": 1.0,
+        "on": "log-scale"
+      },
+      "coef0": {
+        "Type": "UniformFloat",
+        "Range": [
+          -1.0,
+          1.0
+        ],
+        "Default": 0.0
+      },
+      "degree": {
+        "Type": "UniformInteger",
+        "Range": [
+          2,
+          5
+        ],
+        "Default": 3
+      },
+      "gamma": {
+        "Type": "UniformFloat",
+        "Range": [
+          3.0517578125e-05,
+          8.0
+        ],
+        "Default": 0.1,
+        "on": "log-scale"
+      },
+      "kernel": {
+        "Type": "Categorical",
+        "Choices": [
+          "rbf",
+          "poly",
+          "sigmoid"
+        ],
+        "Default": "rbf"
+      },
+      "max_iter": {
+        "Type": "Constant",
+        "Value": "-1"
+      },
+      "shrinking": {
+        "Type": "Categorical",
+        "Choices": [
+          true,
+          false
+        ],
+        "Default": true
+      },
+      "tol": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-05,
+          0.1
+        ],
+        "Default": 0.001,
+        "on": "log-scale"
+      }
+    },
+    "multinomial_nb": {
+      "alpha": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.01,
+          100.0
+        ],
+        "Default": 1.0,
+        "on": "log-scale"
+      },
+      "fit_prior": {
+        "Type": "Categorical",
+        "Choices": [
+          true,
+          false
+        ],
+        "Default": true
+      }
+    },
+    "passive_aggressive": {
+      "C": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-05,
+          10.0
+        ],
+        "Default": 1.0,
+        "on": "log-scale"
+      },
+      "average": {
+        "Type": "Categorical",
+        "Choices": [
+          false,
+          true
+        ],
+        "Default": false
+      },
+      "fit_intercept": {
+        "Type": "Constant",
+        "Value": true
+      },
+      "loss": {
+        "Type": "Categorical",
+        "Choices": [
+          "hinge",
+          "squared_hinge"
+        ],
+        "Default": "hinge"
+      },
+      "tol": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-05,
+          0.1
+        ],
+        "Default": 0.0001,
+        "on": "log-scale"
+      }
+    },
+    "qda": {
+      "reg_param": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.0,
+          1.0
+        ],
+        "Default": 0.0
+      }
+    },
+    "random_forest": {
+      "bootstrap": {
+        "Type": "Categorical",
+        "Choices": [
+          true,
+          false
+        ],
+        "Default": true
+      },
+      "criterion": {
+        "Type": "Categorical",
+        "Choices": [
+          "gini",
+          "entropy"
+        ],
+        "Default": "gini"
+      },
+      "max_depth": {
+        "Type": "Constant",
+        "Value": null
+      },
+      "max_features": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.0,
+          1.0
+        ],
+        "Default": 0.5
+      },
+      "max_leaf_nodes": {
+        "Type": "Constant",
+        "Value": null
+      },
+      "min_impurity_decrease": {
+        "Type": "Constant",
+        "Value": 0.0
+      },
+      "min_samples_leaf": {
+        "Type": "UniformInteger",
+        "Range": [
+          1,
+          20
+        ],
+        "Default": 1
+      },
+      "min_samples_split": {
+        "Type": "UniformInteger",
+        "Range": [
+          2,
+          20
+        ],
+        "Default": 2
+      },
+      "min_weight_fraction_leaf": {
+        "Type": "Constant",
+        "Value": 0.0
+      },
+      "n_estimators": {
+        "Type": "Constant",
+        "Value": 100
+      }
+    },
+    "sgd": {
+      "alpha": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-07,
+          0.1
+        ],
+        "Default": 0.0001,
+        "on": "log-scale"
+      },
+      "average": {
+        "Type": "Categorical",
+        "Choices": [
+          false,
+          true
+        ],
+        "Default": false
+      },
+      "epsilon": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-05,
+          0.1
+        ],
+        "Default": 0.0001,
+        "on": "log-scale"
+      },
+      "eta0": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-07,
+          0.1
+        ],
+        "Default": 0.01,
+        "on": "log-scale"
+      },
+      "fit_intercept": {
+        "Type": "Constant",
+        "Value": true
+      },
+      "l1_ratio": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-09,
+          1.0
+        ],
+        "Default": 0.15,
+        "on": "log-scale"
+      },
+      "learning_rate": {
+        "Type": "Categorical",
+        "Choices": [
+          "optimal",
+          "invscaling",
+          "constant"
+        ],
+        "Default": "invscaling"
+      },
+      "loss": {
+        "Type": "Categorical",
+        "Choices": [
+          "hinge",
+          "log",
+          "modified_huber",
+          "squared_hinge",
+          "perceptron"
+        ],
+        "Default": "log"
+      },
+      "penalty": {
+        "Type": "Categorical",
+        "Choices": [
+          "l1",
+          "l2",
+          "elasticnet"
+        ],
+        "Default": "l2"
+      },
+      "power_t": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-05,
+          1.0
+        ],
+        "Default": 0.5
+      },
+      "tol": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-05,
+          0.1
+        ],
+        "Default": 0.0001,
+        "on": "log-scale"
+      }
+    },
+    "xgradient_boosting": {
+      "base_score": {
+        "Type": "Constant",
+        "Value": 0.5
+      },
+      "booster": {
+        "Type": "Categorical",
+        "Choices": [
+          "gbtree",
+          "dart"
+        ],
+        "Default": "gbtree"
+      },
+      "colsample_bylevel": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.1,
+          1.0
+        ],
+        "Default": 1.0
+      },
+      "colsample_bytree": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.1,
+          1.0
+        ],
+        "Default": 1.0
+      },
+      "gamma": {
+        "Type": "Constant",
+        "Value": 0
+      },
+      "learning_rate": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.001,
+          1.0
+        ],
+        "Default": 0.1,
+        "on": "log-scale"
+      },
+      "max_delta_step": {
+        "Type": "Constant",
+        "Value": 0
+      },
+      "max_depth": {
+        "Type": "UniformInteger",
+        "Range": [
+          1,
+          20
+        ],
+        "Default": 3
+      },
+      "min_child_weight": {
+        "Type": "UniformInteger",
+        "Range": [
+          0,
+          20
+        ],
+        "Default": 1
+      },
+      "n_estimators": {
+        "Type": "Constant",
+        "Value": 512
+      },
+      "normalize_type": {
+        "Type": "Categorical",
+        "Choices": [
+          "tree",
+          "forest"
+        ],
+        "Default": "tree"
+      },
+      "rate_drop": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-10,
+          0.9999999999
+        ],
+        "Default": 0.5
+      },
+      "reg_alpha": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-10,
+          0.1
+        ],
+        "Default": 1e-10,
+        "on": "log-scale"
+      },
+      "reg_lambda": {
+        "Type": "UniformFloat",
+        "Range": [
+          1e-10,
+          0.1
+        ],
+        "Default": 1e-10,
+        "on": "log-scale"
+      },
+      "sample_type": {
+        "Type": "Categorical",
+        "Choices": [
+          "uniform",
+          "weighted"
+        ],
+        "Default": "uniform"
+      },
+      "scale_pos_weight": {
+        "Type": "Constant",
+        "Value": 1
+      },
+      "subsample": {
+        "Type": "UniformFloat",
+        "Range": [
+          0.01,
+          1.0
+        ],
+        "Default": 1.0
+      }
+    }
+  }
+}

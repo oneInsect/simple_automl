@@ -16,7 +16,7 @@ PATH_COMP = re.compile("^[a-f\d]{8}(-[a-f\d]{4}){3}-[a-f\d]{12}?")
 def version(_):
     """Get software version.
     :return str: 'V 1.0.0'"""
-    return HttpResponse("V 1.0.0")
+    return HttpResponse("V 1.0.1")
 
 
 @require_http_methods(['GET'])
